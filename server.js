@@ -36,8 +36,8 @@ app.get('/text',function(req,res){
 })
 
 app.post("/write", (req,res) => {
-    db.collection('post').insertOne({제목: req.body.title, 내용: req.body.content},function(err,res){
-        console.log('저장완료')
+    db.collection('post').insertOne({제목: req.body.title, 내용: req.body.content, _id: req.body._id},function(err,res){
+        db.collection('count').updateOne({"a":"b"},{$set:{countNumber: req.body._id + 1}});
     })
     
 })
@@ -47,5 +47,14 @@ app.get("/list", (req,res) => {
         console.log(결과);
         res.send(결과)
     })
+    
+})
+
+app.get("/number", (요청,결과) => {
+    db.collection('count').find({"a": "b"}).toArray(function(err,res){
+        let data = res[0].countNumber;
+        결과.json(res[0].countNumber)
+    })
+    
     
 })

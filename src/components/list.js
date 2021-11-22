@@ -9,6 +9,7 @@ function List(){
     const getData = async () => {
         const response = await axios.get('http://localhost:5000/list');
         setData(response.data)
+        console.log(response)
     }
     useEffect(()=>{
         getData();
@@ -21,7 +22,7 @@ function List(){
         <ListGroup>
             {data.map((a,i)=>{
                 return(
-                    <ListGroup.Item>
+                    <ListGroup.Item key={i}>
                         <h1>{a.제목}</h1>
                         <h2>{a.내용}</h2>
                     </ListGroup.Item>
@@ -29,7 +30,7 @@ function List(){
             })}
 
         </ListGroup>
-        {console.log(data[0])}
+
         </div>
     )
 }
